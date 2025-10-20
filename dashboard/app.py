@@ -28,7 +28,7 @@ def load_systems():
     except FileNotFoundError:
         # If model doesn't exist, train it
         st.info("🔄 Training model for the first time... This may take a minute.")
-        df = pd.read_csv('data/telco_processed.csv')
+        df = pd.read_csv('../data/telco_processed.csv')
         predictor.train(df)
         predictor.save_model()
         st.success("✅ Model trained successfully!")
