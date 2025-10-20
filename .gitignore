@@ -1,0 +1,7 @@
+ 
+# Data files 
+data/WA_Fn-UseC_-Telco-Customer-Churn.csv 
+data/telco_processed.csv 
+models/churn_model.pkl 
+churn_venv/ 
+__pycache__/ 
