@@ -135,11 +135,15 @@ class ChurnPredictor:
         }, path)
     
     def load_model(self, path='models/churn_model.pkl'):
-        """Load trained model and encoders"""
-        saved_data = joblib.load(path)
-        self.model = saved_data['model']
-        self.label_encoders = saved_data['label_encoders']
-        self.feature_names = saved_data['feature_names']
+        """Load trained model and encoders with error handling"""
+        try:
+            saved_data = joblib.load(path)
+            self.model = saved_data['model']
+            self.label_encoders = saved_data['label_encoders']
+            self.feature_names = saved_data['feature_names']
+        except FileNotFoundError:
+            # Model doesn't exist yet
+            raise FileNotFoundError(f"Model file {path} not found. Train the model first.")
 
 # Train the model
 if __name__ == "__main__":
