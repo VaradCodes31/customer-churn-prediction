@@ -21,7 +21,18 @@ st.set_page_config(
 @st.cache_resource
 def load_systems():
     predictor = ChurnPredictor()
-    predictor.load_model()
+    
+    try:
+        # Try to load existing model
+        predictor.load_model()
+    except FileNotFoundError:
+        # If model doesn't exist, train it
+        st.info("🔄 Training model for the first time... This may take a minute.")
+        df = pd.read_csv('data/telco_processed.csv')
+        predictor.train(df)
+        predictor.save_model()
+        st.success("✅ Model trained successfully!")
+    
     engine = InterventionEngine()
     return predictor, engine
 
